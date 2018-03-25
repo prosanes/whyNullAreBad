@@ -1,5 +1,6 @@
 package whynullsarebad;
 
+import com.google.gson.Gson;
 import org.testng.annotations.Test;
 import whynullsarebad.factory.Blueprint;
 import whynullsarebad.factory.CarFactory;
@@ -16,6 +17,17 @@ public class CarBombTest {
 
         CarFactory carFactory = new CarFactory();
         Car car = carFactory.build(blueprint);
+
+        CarClassifier carClassifier = new CarClassifier();
+        assertEquals("normalCar", carClassifier.classify(car));
+    }
+
+    @Test
+    public void testGson() throws Exception {
+        Gson gson = new Gson();
+        Car car = gson.fromJson(
+                "{\"chassi\":{\"model\":1,\"color\":2},\"engine\":{\"size\":2}}",
+                Car.class);
 
         CarClassifier carClassifier = new CarClassifier();
         assertEquals("normalCar", carClassifier.classify(car));
