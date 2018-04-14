@@ -33,4 +33,17 @@ public class CarBombTest {
         CarClassifier carClassifier = new CarClassifier();
         assertEquals("normalCar", carClassifier.classify(car));
     }
+
+    @Test
+    public void testExplode2() throws Exception {
+        Blueprint blueprint = new Blueprint("dynamo",
+                                            "anyChassiKey",
+                                            "bombCar");
+
+        CarFactory carFactory = new CarFactory();
+        Car car = carFactory.build(blueprint);
+
+        CarClassifier carClassifier = new CarClassifier();
+        assertEquals("normalCar", carClassifier.classify(car));
+    }
 }

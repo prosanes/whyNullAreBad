@@ -7,22 +7,20 @@ import whynullsarebad.model.Engine;
 
 public class CarFactory {
     public Car build(Blueprint blueprint) {
-        Car car = new Car();
         Chassi chassi = null;
         Engine engine = null;
 
         if (blueprint.getBlueprintOrigin().equals("S3")) {
             chassi = getChassiFromS3(blueprint.getChassiKey());
             engine = getEngineFromS3(blueprint.getEngineKey());
+            return new Car(chassi, engine);
         } else if (blueprint.getBlueprintOrigin().equals("Dynamo")) {
             chassi = getChassiFromDynamo(blueprint.getChassiKey());
             engine = getEngineFromDynamo(blueprint.getEngineKey());
+            return new Car(chassi, engine);
         }
 
-        car.setChassi(chassi);
-        car.setEngine(engine);
-
-        return car;
+        return null;
     }
 
     private Engine getEngineFromS3(String engineKey) {
